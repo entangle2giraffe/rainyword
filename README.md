@@ -1,5 +1,4 @@
 # Rainy word Socket Server
-==========================
 
 Everything can be config inside the config file.
 
