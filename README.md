@@ -25,5 +25,5 @@ Remove your test image
 `docker rmi yuuhatevim/rainyword:test
 
 ## TODO Lists
-1. Word List implementation
-2. Server can force close client
+1. Server can force close client
+2. JSON format of Player Obj and word Obj
