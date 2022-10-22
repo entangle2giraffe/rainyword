@@ -17,6 +17,16 @@ As this code is continous integrate to Dockerhub.
 ## Run docker container
 `docker run -p 6969:6969 yuuhatevim/rainywor:<tag>`
 
+## Developing with Docker image
+Build your test image
+`docker build -t yuuhatevim/rainyword:test .`
+
+Run your image as a container
+`docker run -p 6969:6969 yuuhatevim/rainyword:test`
+
+Remove your test image
+`docker rmi yuuhatevim/rainyword:test`
+
 ## TODO Lists
 1. Word List implementation
 2. Server can force close client
