@@ -4,6 +4,7 @@
 Table of Contents
 - [Reminder](#reminder)
 - [Running Docker Image](#run-docker-container)
+- [Developing Docker Image](#developing-with-docker-image)
 - [TODO](#todo-lists)
 
 Everything can be config inside the config file.
@@ -18,14 +19,6 @@ As this code is continous integrate to Dockerhub.
 `docker run -p 6969:6969 yuuhatevim/rainyword:<tag>`
 
 ## Developing with Docker image
-`docker build -t yuuhatevim/rainyword:test .`
-Run your image as a container
-`docker run -p 6969:6969 yuuhatevim/rainyword:test
-Remove your test image
-`docker rmi yuuhatevim/rainyword:test
-
-## Developing with Docker image
-Build your test image
 `docker build -t yuuhatevim/rainyword:test .`
 
 Run your image as a container
