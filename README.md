@@ -18,4 +18,5 @@ As this code is continous integrate to Dockerhub.
 `docker run -p 6969:6969 yuuhatevim/rainywor:<tag>`
 
 ## TODO Lists
-1. Write TODO Lists
+1. Word List implementation
+2. Server can force close client
