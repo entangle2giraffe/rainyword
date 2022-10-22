@@ -50,14 +50,20 @@ class Word():
 
 # Test cases
 if __name__ == "__main__":
+    import json 
+
     p = Player(1)
     p.add_point()
     print(p.__str__())
     p.point = 10 
     print(p.__str__())
+    jsonstr = json.dumps(p.__dict__)
+    print(jsonstr)
     p.point_reset()
     print(p.__str__())
     w = Word(1, "word here")
     print(w)
     w = Word(2, "word not here")
     print(w)
+    jsonstr = json.dumps(w.__dict__)
+    print(jsonstr)
