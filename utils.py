@@ -21,8 +21,14 @@ def save_to_file(filename, jsonObj):
 
 def class_to_json(cl):
     """Convert class to json format"""
-    json_str = json.dumps(cl.__dict__)
+    json_str = json.dumps(
+        {"id": cl.ID,"point": cl.point}
+    )
     return json_str
+
+def json_read(res):
+    """Read JSON in plaintext"""
+    return json.loads(res)
 
 
 if __name__ == "__main__":
@@ -35,3 +41,6 @@ if __name__ == "__main__":
     #jsonObj = jsonify(x)
     #save_to_file('words_list.json', jsonObj)
     pass
+
+if __name__ == "utils":
+    import json
