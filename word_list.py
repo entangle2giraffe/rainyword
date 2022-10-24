@@ -1,5 +1,6 @@
 import json
 import random
+import time
 
 def generate_random_words() -> list:
     """
@@ -12,8 +13,10 @@ def generate_random_words() -> list:
     return words
 
 # [TODO] Send words list for 5 min with delay between each
-def passholder():
-    pass
+def ThaksinDelay(words):
+    for word in words:
+        print(word)
+        time.sleep(5)
 
 if __name__ == "__main__":
-    print(generate_random_words())
+    print(ThaksinDelay(generate_random_words()))
