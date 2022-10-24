@@ -1,2 +1,6 @@
 # Ignore
 .vscode
+__pycache__
+
+# Text file
+wordlist.10000

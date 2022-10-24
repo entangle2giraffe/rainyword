@@ -3,6 +3,8 @@ import time
 import configparser
 import time
 import logging
+from player import json_players
+import Object
 
 # Logger Config
 logging.basicConfig(level=logging.DEBUG, format='[%(levelname)s] %(asctime)s %(message)s')
@@ -29,19 +31,26 @@ def init_server(client_n=2):
     
     return sock
 
+def client_init():
+    """
+    When client send first two data about players
+    """
+    p1 = Object.Player(1)
+    p2 = Object.Player(2)
+    data = json_players(p1,p2)
+    return data
+
 def main():
     s = init_server()
 
     while True:
         # Establish connection
         c, addr = s.accept()
-        #logging.DEBUG(f'Got connection from {str(addr)}')
         # Send a text to the client
-        c.sendall(f'Hi {str(addr)}'.encode())
-        # [TODO] disconnect client first and then close server after
-        # might do it in close_connection function
+        c.sendall(f'Hi {str(addr)} {client_init()}'.encode())
         c.close
-        break
+        #break
 
 if __name__ == "__main__":
     main()
+    
