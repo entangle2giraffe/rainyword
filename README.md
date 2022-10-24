@@ -4,6 +4,7 @@
 Table of Contents
 - [Reminder](#reminder)
 - [Running Docker Image](#run-docker-container)
+- [Developing Docker Image](#developing-with-docker-image)
 - [TODO](#todo-lists)
 
 Everything can be config inside the config file.
@@ -15,10 +16,9 @@ Please dont push to the master respository. Just make a pull request and I will 
 As this code is continous integrate to Dockerhub.
 
 ## Run docker container
-`docker run -p 6969:6969 yuuhatevim/rainywor:<tag>`
+`docker run -p 6969:6969 yuuhatevim/rainyword:<tag>`
 
 ## Developing with Docker image
-Build your test image
 `docker build -t yuuhatevim/rainyword:test .`
 
 Run your image as a container
@@ -28,5 +28,5 @@ Remove your test image
 `docker rmi yuuhatevim/rainyword:test`
 
 ## TODO Lists
-1. Word List implementation
-2. Server can force close client
+1. Server can force close client
+2. JSON format of Player Obj and word Obj

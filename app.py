@@ -3,6 +3,9 @@ import time
 import configparser
 import time
 import logging
+import json
+from Object import Player
+import utils
 
 # Logger Config
 logging.basicConfig(level=logging.DEBUG, format='[%(levelname)s] %(asctime)s %(message)s')
@@ -38,6 +41,8 @@ def main():
         #logging.DEBUG(f'Got connection from {str(addr)}')
         # Send a text to the client
         c.sendall(f'Hi {str(addr)}'.encode())
+        p1,p2 = Player(1),Player(2)
+        print(utils.class_to_json(p1))
         # [TODO] disconnect client first and then close server after
         # might do it in close_connection function
         c.close
@@ -45,3 +50,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+    
