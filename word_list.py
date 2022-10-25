@@ -1,7 +1,7 @@
 import json
 import random
 import time
-from threading import Timer
+import threading
 
 def generate_random_words() -> list:
     """
@@ -11,13 +11,23 @@ def generate_random_words() -> list:
         content = json.loads(f.read())
         content = content['categories']['MIT 10000 words']
         words = random.sample(content, 5)
-    return words
+        print(words)
 
 # [TODO] Send words list for 5 min with delay between each
-def ThaksinDelay():
-    t = Timer(10, generate_random_words)
-    t.start()
-    t.join()
+def countdown():
+    global my_timer
+    my_timer = 5 * 60
+    for x in range(300):
+        my_timer = my_timer-1
+        time.sleep(1)
+
+def delay():
+    countdown_thread = threading.Thread(target=countdown)
+    countdown_thread.start()
+    while my_timer > 0:
+        generate_random_words()
+        time.sleep(3)
+
 
 if __name__ == "__main__":
-    print(ThaksinDelay())
+    delay()
