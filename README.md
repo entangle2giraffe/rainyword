@@ -28,5 +28,41 @@ Remove your test image
 `docker rmi yuuhatevim/rainyword:test`
 
 ## TODO Lists
-1. Server can force close client
-2. JSON format of Player Obj and word Obj
+1. typed_word.py
+2. expired_word.py
+
+## Sender JSON Format
+__lobby.py__
+
+return
+```json
+{
+    "Player": [
+        {"ID":1, "Point":0},
+        {"ID":2, "Point":0}
+    ]
+}
+```
+
+__word_list.py__
+
+return
+```json
+{
+    "word": [
+        "word0",
+        "word1",
+        "word2",
+        "word3",
+        "word4",
+    ]
+}
+```
+
+__typed_word.py__
+
+return point(ID:1,Point:1)
+```json
+{
+    "point": [1,1]
+}

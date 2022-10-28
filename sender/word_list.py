@@ -6,6 +6,7 @@ import threading
 def generate_random_words() -> list:
     """
     Comment here <--
+    random bullshit go
     """
     with open("words_list.json") as f:
         content = json.loads(f.read())
@@ -15,6 +16,7 @@ def generate_random_words() -> list:
 
 # [TODO] Send words list for 5 min with delay between each
 def countdown():
+    #countdown code
     global my_timer
     my_timer = 5 * 60
     for x in range(300):
@@ -22,6 +24,7 @@ def countdown():
         time.sleep(1)
 
 def delay():
+    #delay for 3 sec
     countdown_thread = threading.Thread(target=countdown)
     countdown_thread.start()
     while my_timer > 0:
