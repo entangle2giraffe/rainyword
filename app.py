@@ -3,7 +3,7 @@ import time
 import configparser
 import time
 import logging
-from player import json_players
+from sender.player import json_players
 import Object
 
 # Logger Config

@@ -1,6 +1,14 @@
+import sys
+import json
+import os
+
+# Import from parent directory
+current = os.path.dirname(os.path.realpath(__file__))
+parent = os.path.dirname(current)
+sys.path.append(parent)
+
 from Object import Player
 from utils import class_to_json
-import json
 
 def json_players(p1, p2):
     # Player Json
@@ -17,5 +25,5 @@ def json_players(p1, p2):
 
 if __name__ == "__main__":
     p1,p2 = Player(1),Player(2)
-    x = player(p1,p2)
+    x = json_players(p1,p2)
     print(json.loads(x))
