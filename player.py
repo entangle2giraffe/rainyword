@@ -17,5 +17,5 @@ def json_players(p1, p2):
 
 if __name__ == "__main__":
     p1,p2 = Player(1),Player(2)
-    x = player(p1,p2)
+    x = json_players(p1,p2)
     print(json.loads(x))
