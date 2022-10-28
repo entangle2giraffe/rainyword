@@ -1,22 +1,22 @@
 import socket
-import json
-import configparser
 
-# close connection of Socket with the server and return Socket
-def close_connection(Socket: socket.SocketType) -> socket.SocketType:
-    while True:
-        Socket.sendall(f'exitNow'.encode())
-        close = Socket.recv(1024).decode()
-        if close == 'closeNow':
-            Socket.sendall(f'closedNow'.encode())
-            Socket.close
-            break
-    return Socket    
+def client_program():
+        host = socket.gethostname()
+        port = 6969
 
-config = configparser.ConfigParser()
-config.read("config")
-s = socket.socket()
-port = int(config.get('server','port'))
-s.connect(('127.0.0.1',port))
-print(s.recv(1024).decode())
-close_connection(s)
+        client_socket = socket.socket()
+        client_socket.connect((host, port))
+
+        message = input(" -> ") # take input
+        while message.lower().strip() != 'bye': # when send bye to server the connection is close
+                client_socket.send(message.encode())                      
+                data = client_socket.recv(1024).decode() 
+                print('Recieved from server: ' + data)   
+                message = input(" -> ").lower()
+
+        client_socket.close()
+
+
+if __name__ == "__main__":
+        client_program()
+                            

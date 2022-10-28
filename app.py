@@ -42,23 +42,21 @@ def client_init():
 
 def main():
     s = init_server()
-
+    c, addr = s.accept()
+    logging.debug("Connection from: "+str(addr))
+    
+    # recieve 
+    data = c.recv(1024).decode() # recieve data from client
+    logging.info(f"client: {str(data)}")
+    c.sendall(f'{client_init()}'.encode()) # send back player json
+    # Simulated data sending
     while True:
-        # Establish connection
-        c, addr = s.accept()
-        print(f"Connected by {addr}")
-        # Send a text to the client
-        c.sendall(f'Hi {str(addr)} {client_init()}'.encode())
-        client_message = c.recv(1024).decode()
-        # if client send "exitNow", close connection
-        if client_message == "exitNow":
-            c.sendall(f'closeNow'.encode())
-            closed = c.recv(1024).decode()
-            if closed == "closedNow":
-                print(f"{addr} has been disconnected")
-                c.close()
-                logging.info("socket is closed")
-                break
+        data = c.recv(1024).decode()
+        if not data: break
+        logging.info(f"{addr}: {str(data)}")
+        data = input('->')
+        c.send(data.encode())
+    c.close
 
 if __name__ == "__main__":
     main()
