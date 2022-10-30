@@ -3,6 +3,8 @@ import random
 import time
 import threading
 
+from utils import jsonify
+
 def generate_random_words() -> list:
     """
     Comment here <--
@@ -11,7 +13,7 @@ def generate_random_words() -> list:
     with open("words_list.json") as f:
         content = json.loads(f.read())
         content = content['categories']['MIT 10000 words']
-        words = random.sample(content, 5)
+        words = jsonify({"word":random.sample(content, 5)})
         print(words)
 
 def countdown():

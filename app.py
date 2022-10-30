@@ -50,7 +50,7 @@ def multi_threaded_client(connection, address):
     Connect Multiple CLients in Python
     """
     FORMAT = "utf-8"
-    DISCONNECT_MESSAGE = "!DISCONNECT"
+    DISCONNECT_MESSAGE = "!DISCONNECT" # [NOT IMPLEMENT]
 
     #connection.send(str.encode(f'Server is working:'))
     data = connection.recv(2048)
