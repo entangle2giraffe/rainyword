@@ -1,16 +1,13 @@
+import sys
+import json
+import os
 from Object import Player
 from utils import class_to_json
-import json
 
 def json_players(p1, p2):
-    # Player Json
-    p1j,p2j = class_to_json(p1),class_to_json(p2)
-
+    # Player Json)
     data = {
-        "Player":{
-            "player1": p1j,
-            "player2": p2j
-        }
+        "player":[p1.point, p2.point]
     }
 
     return json.dumps(data)
@@ -18,4 +15,4 @@ def json_players(p1, p2):
 if __name__ == "__main__":
     p1,p2 = Player(1),Player(2)
     x = json_players(p1,p2)
-    print(json.loads(x))
+    print(x)

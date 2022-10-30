@@ -16,6 +16,7 @@ def generate_random_words() -> list:
         words = jsonify({"word":random.sample(content, 5)})
         print(words)
 
+# [TODO] Send words list for 5 min with delay between each
 def countdown():
     #countdown code
     global my_timer
