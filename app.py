@@ -5,6 +5,8 @@ import time
 import logging
 from player import json_players
 import Object
+import os
+from _thread import *
 
 # Logger Config
 logging.basicConfig(level=logging.DEBUG, format='[%(levelname)s] %(asctime)s %(message)s')
@@ -16,13 +18,16 @@ def _read_config() -> int:
     
     return port
 
-def init_server(client_n=2):
+def start(client_n=2):
     """
     Open up TCP Socket Server
     """
-    port = _read_config()
+    port = _read_config() # Read config file
     sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM) #Initialize TCP
-    sock.bind(('',int(port)))
+    try:
+        sock.bind(('',int(port)))
+    except socket.error as e:
+        logging.error(f"{str(e)}")
     logging.info(f"socket is binded to {port}")
 
     # listen to n clients 
@@ -40,24 +45,37 @@ def client_init():
     data = json_players(p1,p2)
     return data
 
-def main():
-    s = init_server()
-    c, addr = s.accept()
-    logging.debug("Connection from: "+str(addr))
-    
-    # recieve 
-    data = c.recv(1024).decode() # recieve data from client
-    logging.info(f"client: {str(data)}")
-    c.sendall(f'{client_init()}'.encode()) # send back player json
-    # Simulated data sending
+def multi_threaded_client(connection, address):
+    """
+    Connect Multiple CLients in Python
+    """
+    FORMAT = "utf-8"
+    DISCONNECT_MESSAGE = "!DISCONNECT" # [NOT IMPLEMENT]
+
+    #connection.send(str.encode(f'Server is working:'))
+    data = connection.recv(2048)
+    logging.info(f'{address} '+data.decode(FORMAT))
+    response = client_init()
+    connection.sendall(f'{response}'.encode(FORMAT))
     while True:
-        data = c.recv(1024).decode()
-        if not data: break
-        logging.info(f"{addr}: {str(data)}")
-        data = input('->')
-        c.send(data.encode())
-    c.close
+        data = connection.recv(2048)
+        response = '[SERVER] ' +data.decode(FORMAT)
+        if not data:
+            break
+        connection.sendall(str.encode(response))
+
+    connection.close()
+
+def main():
+    thread_count = 0
+    s = start()
+    while True:
+        c, addr = s.accept()
+        logging.debug("Connection from: "+str(addr))
+        start_new_thread(multi_threaded_client, (c,addr))
+        thread_count += 1
+        logging.debug(f"Thread: {thread_count}")
+    s.close()
 
 if __name__ == "__main__":
-    main()
-    
+    main() 

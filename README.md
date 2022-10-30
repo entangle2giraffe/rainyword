@@ -34,13 +34,10 @@ Remove your test image
 ## Sender JSON Format
 __lobby.py__
 
-return
+return Player(point(ID=1)=0,point(ID=2)=0)
 ```json
 {
-    "Player": [
-        {"ID":1, "Point":0},
-        {"ID":2, "Point":0}
-    ]
+    "player": [0,0]
 }
 ```
 
