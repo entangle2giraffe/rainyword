@@ -1,8 +1,12 @@
 import json
 import random
-import time
+import time, os, sys
 import threading
 
+# import from parent directory
+current = os.path.dirname(os.path.realpath(__file__))
+parent = os.path.dirname(current)
+sys.path.append(parent)
 from utils import jsonify
 
 def generate_random_words() -> list:
