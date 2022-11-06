@@ -1,6 +1,7 @@
 # Ignore
 .vscode
 __pycache__
+app.py.bak
 
 # Text file
 wordlist.10000
