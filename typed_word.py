@@ -19,6 +19,7 @@ def add_point(data:str): # Example of how to read json str in lobby.py
 def read_word(data:str):
     """Remove the word player typed from dict"""
     #remove_word.py function here
+    pass
 
 if __name__ == "__main__":
     data = '{"ID":1,"playerTyped":"apple"}'
