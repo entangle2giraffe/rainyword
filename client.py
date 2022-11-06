@@ -6,7 +6,8 @@ def client_program():
 
         client_socket = socket.socket()
         client_socket.connect((host, port))
-
+        data = client_socket.recv(1024).decode()
+        print(data)
         message = input(" -> ") # take input
         while message.lower().strip() != 'bye': # when send bye to server the connection is close
                 client_socket.send(message.encode())                      
