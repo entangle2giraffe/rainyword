@@ -8,6 +8,13 @@ parent = os.path.dirname(current)
 sys.path.append(parent)
 from Object import Player
 
+def assign_id(n:int):
+    data ={
+        "assignID":n
+    }
+    return json.dumps(data)
+
+
 def json_players(p1, p2):
     # Player Json
     data = {
