@@ -11,8 +11,7 @@ from utils import jsonify
 
 def generate_random_words() -> list:
     """
-    Comment here <--
-    random bullshit go
+    Generate the random word from the list
     """
     with open("words_list.json") as f:
         content = json.loads(f.read())
