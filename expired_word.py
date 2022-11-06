@@ -7,6 +7,7 @@ def remove_word(data:str): # Example of how to read json str in lobby.py
     Read JSON WordExpired and return WordRemoved
     """
     data['WordRemoved'] = data["word"]
+    del data["word"]
     return data
 
 if __name__ == "__main__":
