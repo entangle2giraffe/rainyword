@@ -6,6 +6,7 @@ import sender.player as player
 import Object
 import os
 from _thread import *
+import threading
 
 class Server:
     connections = []
@@ -17,32 +18,33 @@ class Server:
         self.port = port
         self.lb = lobby.Lobby("status.json")
   
-    def multi_threaded_client(self):
+    def multi_threaded_client(self, c:socket):
         """
         Connect Multiple CLients in Python
         """
         FORMAT = "utf-8"
         DISCONNECT_MESSAGE = "!DISCONNECT" # [NOT IMPLEMENT]
-        self.c.sendall(f'{player.assign_id(self.thread_count)}'.encode(FORMAT))
+        
+        c.sendall(f'{player.assign_id(self.thread_count)}'.encode(FORMAT))
         # Read player status
-        data = self.c.recv(2048) 
+        data = c.recv(2048) 
         self.lb.read_status(data)
-        self.c.sendall("Game Started")
+        c.sendall(b"Game Started")
         # lobby.return_player() -> Game start here
         # sender.word_list
         # typed_word
         # expired_word
         while True:
-            data = self.c.recv(2048)
-            response = '[SERVER] ' +data.decode(FORMAT)
+            data = c.recv(2048)
+            response = '[SERVER] ' + data.decode(FORMAT)
             if not data:
                 break
             try:
-                self.c.sendall(str.encode(response))
+                c.sendall(str.encode(response))
             except:
                 break
 
-        self.c.close()
+        c.close()
 
     def start(self, client_n:int=2):
         """
@@ -65,16 +67,20 @@ class Server:
                 break
             self.connections.append(self.c)
             self.addresses.append(self.addr)
+            print("") 
             print(self.connections)
             print(self.addresses) 
             logging.debug("Connection from: "+str(self.addr))
-            start_new_thread(self.multi_threaded_client,())
+            start_new_thread(self.multi_threaded_client,(self.c,)) #use current self.c to start a new thread
             self.thread_count += 1
             logging.debug(f"Thread: {self.thread_count}")
+            logging.debug(f"connections[] length: " + str(len(self.connections))) 
+            print("")
+        logging.info("socket is closed")
         sock.close()
         self.lb.reset_dict()
         
     
 if __name__ == '__main__':
     s = Server(6969)
-    s.start() 
+    s.start()
