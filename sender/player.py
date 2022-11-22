@@ -25,7 +25,7 @@ def add_to_list(id:int, name, isBusy):
     player_list.append({"id":id, "name":name, "isBusy":isBusy})
     dict["playerList"] = player_list
 
-# dict = {"playerList":[ {"id":1,"name":"Bob","isBusy":false}, {"id":3,"name":"Trudy","isBusy":false}, {"id":123,"name":"Alice","isBusy":false}]}
+#remove a client from player_list (client will send {"removeClient":id})
 def remove_from_list(id:int):
     for i in range(len(player_list)):
         if player_list[i]["id"] == id:
@@ -38,14 +38,13 @@ def json_players(p1, p2):
     data = {
         "player":[p1.point, p2.point]
     }
-
     return json.dumps(data)
 
 if __name__ == "__main__":
     p1,p2 = Player(1),Player(2)
     x = json_players(p1,p2)
     print(x)
-    
+
     # test 
     add_to_list(1, "Alice", False)
     print(send_player_list())
