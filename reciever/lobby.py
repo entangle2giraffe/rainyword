@@ -2,11 +2,12 @@ import json
 import time
 import sys, os
 
-current = os.path.dirname(os.path.realpath(__file__))
-parent = os.path.dirname(current)
-sys.path.append(parent)
-import sender.player as player
-from utils import json_modify
+#current = os.path.dirname(os.path.realpath(__file__))
+#parent = os.path.dirname(current)
+#sys.path.append(parent)
+#import sender.player as player
+#from utils import json_modify
+import utils
 
 class Lobby:
     ps1 = 0
@@ -19,13 +20,13 @@ class Lobby:
         """Read status of json string if both
         of them are ready (1) then update the file"""
         data = json.loads(data)['status']
-        player_id = str(data[0])
+        player_id = str(data[0]) 
         status = data[1]
-        if player_id == 1:
+        if player_id == '1':
             self.ps1 = status
-        elif player_id == 2:
-            self.ps2 = status
-        json_modify(self.filename, player_id, status)
+        elif player_id == '2':
+             self.ps2 = status
+        utils.json_modify(self.filename, player_id, status)
 
     def _return_dict(self) -> dict:
         """Debugging purpose only"""
@@ -33,12 +34,12 @@ class Lobby:
 
     def reset_dict(self) -> None:
         """Reset back the file after the game end"""
-        json_modify(self.filename, "1", 0)
-        json_modify(self.filename, "2", 0)
+        utils.json_modify(self.filename, "1", 0)
+        utils.json_modify(self.filename, "2", 0)
         
 
 if __name__ == "__main__":
-    lb = Lobby("status.json")
+    lb = Lobby("../status.json")
     data1 = '{"status": [1,1]}'
     lb.read_status(data1)
     time.sleep(1)

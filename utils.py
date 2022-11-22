@@ -1,4 +1,5 @@
 import json
+import os
 
 def plaintext_to_list(filename):
     words_list = []

@@ -7,6 +7,8 @@ current = os.path.dirname(os.path.realpath(__file__))
 parent = os.path.dirname(current)
 sys.path.append(parent)
 from Object import Player
+player_list = []
+
 
 def assign_id(n:int):
     data ={
@@ -14,6 +16,12 @@ def assign_id(n:int):
     }
     return json.dumps(data)
 
+def send_player_list():
+    return json.dumps(player_list)
+
+#add a client to the player_list
+def add_to_list(n:int, name):
+    player_list.append({"id":n, "name":name})
 
 def json_players(p1, p2):
     # Player Json
