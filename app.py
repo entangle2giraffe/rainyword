@@ -26,9 +26,10 @@ class Server:
         FORMAT = "utf-8"
         DISCONNECT_MESSAGE = "!DISCONNECT" # [NOT IMPLEMENT]
         player_ID = self.thread_count # player assigned id in each thread
+        isBusy = False #placeholder
 
         c.sendall(f'{player.assign_id(player_ID)}'.encode(FORMAT)) # send an assigned id to client
-        player.add_to_list(player_ID, new_client) # add this client to player_list
+        player.add_to_list(player_ID, new_client, isBusy) # add this client to player_list
         while True:
             data = c.recv(2048).decode()
             if data == '{"requestPlayerList": ' + str(player_ID) + '}':
