@@ -18,13 +18,20 @@ def assign_id(n:int):
     return json.dumps(data)
 
 def send_player_list():
-    #return json.dumps(player_list)
     return json.dumps(dict)
 
 #add a client to the player_list
-def add_to_list(n:int, name, isBusy):
-    player_list.append({"id":n, "name":name, "isBusy":isBusy})
+def add_to_list(id:int, name, isBusy):
+    player_list.append({"id":id, "name":name, "isBusy":isBusy})
     dict["playerList"] = player_list
+
+# dict = {"playerList":[ {"id":1,"name":"Bob","isBusy":false}, {"id":3,"name":"Trudy","isBusy":false}, {"id":123,"name":"Alice","isBusy":false}]}
+def remove_from_list(id:int):
+    for i in range(len(player_list)):
+        if player_list[i]["id"] == id:
+            player_list.pop(i)
+            break
+    dict["playerList"] = player_list        
 
 def json_players(p1, p2):
     # Player Json
@@ -38,4 +45,15 @@ if __name__ == "__main__":
     p1,p2 = Player(1),Player(2)
     x = json_players(p1,p2)
     print(x)
+    
+    # test 
+    add_to_list(1, "Alice", False)
+    print(send_player_list())
+    add_to_list(3, "Bob", False)
+    print(send_player_list())
+    add_to_list(123, "Trudy", False)
+    print(send_player_list())
+    remove_from_list(3)
+    print(send_player_list())
+
 
