@@ -21,7 +21,7 @@ def send_player_list():
     return json.dumps(dict)
 
 #find id and return position
-def find(id):
+def find(id) -> int: 
     for i in range (len(player_list)):
         if id == player_list[i]["id"]:
             return i
