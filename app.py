@@ -33,22 +33,23 @@ class Server:
             if matched != 0: 
                 c1 = player.find(matched[0])
                 c2 = player.find(matched[1])
-                message = '{"matchStart":' + str(matched) + '}' 
-                self.connections[c1].sendall(f'{message}'.encode("utf-8")) # ex. {"matchStart":[1,123]}
-                self.connections[c2].sendall(f'{message}'.encode("utf-8")) # ex. {"matchStart":[1,123]}
+                message = '{"matchStart":' + str(matched) + '}'
+                self.broadcast(message, self.connections[c1], self.connections[c2]) 
+                # self.connections[c1].sendall(f'{message}'.encode("utf-8")) # ex. {"matchStart":[1,123]}
+                # self.connections[c2].sendall(f'{message}'.encode("utf-8")) # ex. {"matchStart":[1,123]}
                 matched = 0
                 logging.debug("matched!!!")
             time.sleep(1)
         logging.debug("match_request_check has stopped working")    
   
-    def broadcast(self, client1, client2):
+    def broadcast(self, msg, client1, client2):
         """
         Broadcast msg to 2 clients
         """
         for conn in [client1, client2]:
             conn.send(msg.encode(self.FORMAT))
 
-    def announce(self):
+    def announce(self, msg):
         """
         Announce msg to entire lobby
         """
