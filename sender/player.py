@@ -34,8 +34,18 @@ def json_players(p1, p2):
 
     return json.dumps(data)
 
+#find id and return position
+def find(id):
+    for i in range (len(player_list)):
+        if id == player_list[i]["id"]:
+            return i
+
 if __name__ == "__main__":
     p1,p2 = Player(1),Player(2)
     x = json_players(p1,p2)
     print(x)
+    add_to_list(69,"Joe Biden","False")
+    add_to_list(420,"P Kong","False")
+    add_to_list(86,"James is a very moe girl","False")
+    print(find(420))
 

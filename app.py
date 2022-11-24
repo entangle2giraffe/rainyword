@@ -3,11 +3,11 @@ import time
 import logging
 import reciever.lobby as lobby
 import sender.player as player
+import sender.word_list as wl
 import Object
 import os
 from _thread import *
-import threading
-import json
+from threading import Thread
 
 class Server:
     connections = []
@@ -19,43 +19,45 @@ class Server:
         self.port = port
         self.lb = lobby.Lobby("status.json")
   
-    def multi_threaded_client(self, c:socket, new_client):
+    def broadcast(self, msg):
+        for conn in self.connections:
+            conn.send(msg.encode("utf-8"))
+
+    def multi_threaded_client(self):
         """
         Connect Multiple CLients in Python
         """
         FORMAT = "utf-8"
         DISCONNECT_MESSAGE = "!DISCONNECT" # [NOT IMPLEMENT]
-        player_ID = self.thread_count # player assigned id in each thread
-        isBusy = False #placeholder
-
-        c.sendall(f'{player.assign_id(player_ID)}'.encode(FORMAT)) # send an assigned id to client
-        player.add_to_list(player_ID, new_client, isBusy) # add this client to player_list
-        while True:
-            data = c.recv(2048).decode()
-            if data == '{"requestPlayerList": ' + str(player_ID) + '}':
-                c.sendall(f'{player.send_player_list()}'.encode(FORMAT))# send player_list to the client
-            if not data:
-                break    
-        c.close()    
+        self.c.sendall(f'{player.assign_id(self.thread_count)}'.encode(FORMAT))
         # Read player status
-        #data = c.recv(2048) 
+        data = self.c.recv(2048) 
         #self.lb.read_status(data)
-        #c.sendall(b"Game Started")
+        self.c.sendall("Game Started".encode(FORMAT))
+        self.word_gen()
         # lobby.return_player() -> Game start here
         # sender.word_list
         # typed_word
         # expired_word
-        while True:
-            data = c.recv(2048)
-            response = '[SERVER] ' + data.decode(FORMAT)
-            if not data:
-                break
-            try:
-                c.sendall(str.encode(response))
-            except:
-                break
+        #while True:
+            #data = self.c.recv(2048)
+            #response = '[SERVER] ' +data.decode(FORMAT)
+            #if not data:
+                #break
+            #try:
+                #self.c.sendall(str.encode(response))
+            #except:
+                #break
 
-        c.close()
+        self.c.close()
+
+    def word_gen(self):
+        countdown_thread = Thread(target=wl.countdown)
+        countdown_thread.start()
+        while wl.my_timer > 0:
+            self.broadcast(wl.generate_random_words())
+            time.sleep(3)
+
 
     def start(self, client_n:int=2):
         """
@@ -69,33 +71,25 @@ class Server:
         logging.info(f"socket is binded to {self.port}")
 
         # listen to n clients 
-        sock.listen(2)
+        sock.listen(client_n)
         logging.info("socket is listening")
         while True:
             try:
-                self.c, self.addr = sock.accept() #accept connection from a client
+                self.c, self.addr = sock.accept()
             except:
                 break
             self.connections.append(self.c)
             self.addresses.append(self.addr)
-            new_client = json.loads(self.c.recv(2048).decode())
-            logging.debug(new_client) # {'newClient': 'Alice'}
-            logging.debug(type(new_client)) # dict
-            logging.debug(new_client['newClient']) # Alice
-            print("") 
-            #print(self.connections)
-            #print(self.addresses) 
+            print(self.connections)
+            print(self.addresses) 
             logging.debug("Connection from: "+str(self.addr))
-            start_new_thread(self.multi_threaded_client,(self.c, new_client['newClient'])) #use current self.c to start a new thread
+            start_new_thread(self.multi_threaded_client,())
             self.thread_count += 1
             logging.debug(f"Thread: {self.thread_count}")
-            #logging.debug(f"connections[] length: " + str(len(self.connections))) 
-            print("")
-        logging.info("socket is closed")
         sock.close()
         self.lb.reset_dict()
         
     
 if __name__ == '__main__':
     s = Server(6969)
-    s.start()
+    s.start() 
