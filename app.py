@@ -26,7 +26,17 @@ class Server:
     FORMAT = "utf-8"
 
     def __init__(self, port:int):        
-        logging.basicConfig(level=logging.DEBUG, format='[%(levelname)s] %(asctime)s %(message)s')
+        self.logger = logging.getLogger(__name__)
+        self.logger.setLevel(1)
+        f_handler = logging.FileHandler('app.log')
+        c_handler = logging.StreamHandler()
+        
+        formatter = logging.Formatter('[%(levelname)s] %(asctime)s %(message)s')
+        c_handler.setFormatter(formatter)
+        f_handler.setFormatter(formatter)
+        for h in (c_handler,f_handler):
+            self.logger.addHandler(h)
+        #logging.basicConfig(level=logging.DEBUG, format='[%(levelname)s] %(asctime)s %(message)s')
         self.port = port
         self.lb = lobby.Lobby("status.json")
 
@@ -40,9 +50,9 @@ class Server:
                 message = '{"matchStart":' + str(matched) + '}' 
                 self.broadcast(message, self.connections[c1], self.connections[c2]) 
                 matched = 0
-                logging.debug("matched!!!")
+                self.logger.debug("matched!!!")
             time.sleep(1)
-        logging.debug("match_request_check has stopped working")    
+        self.logger.debug("match_request_check has stopped working")    
   
     def broadcast(self, msg, client1, client2):
         """
@@ -172,6 +182,16 @@ class Server:
     #except:
         #c.close()
         #exit.quit(player_ID)    
+        stop_threads = False    
+        recv_thread = Thread(target=self.threaded_recieve, args=(c,lambda: stop_threads,))
+        recv_thread.start()
+        self.threads.append(recv_thread)
+        self.word_gen()
+        stop_threads = True
+        for t in self.threads:
+            t.join()
+        self.logger.debug('All reciever threads are dead')    
+        c.close()    
 
     def start(self, client_n:int=10):
         """
@@ -181,13 +201,13 @@ class Server:
         try:
             sock.bind(('',self.port))
         except socket.error as e:
-            logging.error(f"{str(e)}")
-        logging.info(f"socket is binded to {self.port}")
+            self.logger.error(f"{str(e)}")
+        self.logger.info(f"socket is binded to {self.port}")
 
         # listen to n clients 
         sock.listen(client_n)
         self.listening = True
-        logging.info("socket is listening")
+        self.logger.info("socket is listening")
         thread = Thread(target = self.match_request_check,)
         thread.start()
         #start_new_thread(self.match_request_check(),)
@@ -206,12 +226,14 @@ class Server:
             print("") 
             #print(self.connections)
             #print(self.addresses) 
-            logging.debug("Connection from: "+str(self.addr))
+            self.logger.debug("Connection from: "+str(self.addr))
             start_new_thread(self.multi_threaded_client,(self.c, new_client['newClient'])) #use current self.c to start a new thread
             self.thread_count += 1
             logging.debug(f"Thread: {self.thread_count}") 
+            self.logger.debug(f"Thread: {self.thread_count}")
+            #logging.debug(f"connections[] length: " + str(len(self.connections))) 
             print("")
-        logging.info("socket is closed")
+        self.logger.info("socket is closed")
         self.listening = False
         sock.close()
     
