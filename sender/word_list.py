@@ -17,7 +17,7 @@ def generate_random_words() -> list:
         content = json.loads(f.read())
         content = content['categories']['MIT 10000 words']
         words = jsonify({"word":random.sample(content, 5)})
-        print(words)
+        return words
 
 # [TODO] Send words list for 5 min with delay between each
 def countdown():
@@ -33,7 +33,7 @@ def delay():
     countdown_thread = threading.Thread(target=countdown)
     countdown_thread.start()
     while my_timer > 0:
-        generate_random_words()
+        print(generate_random_words())
         time.sleep(3)
 
 
