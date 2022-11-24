@@ -20,6 +20,12 @@ def assign_id(n:int):
 def send_player_list():
     return json.dumps(dict)
 
+#find id and return position
+def find(id):
+    for i in range (len(player_list)):
+        if id == player_list[i]["id"]:
+            return i
+
 #add a client to the player_list
 def add_to_list(id:int, name, isBusy):
     player_list.append({"id":id, "name":name, "isBusy":isBusy})
@@ -46,13 +52,5 @@ if __name__ == "__main__":
     print(x)
 
     # test 
-    add_to_list(1, "Alice", False)
-    print(send_player_list())
-    add_to_list(3, "Bob", False)
-    print(send_player_list())
-    add_to_list(123, "Trudy", False)
-    print(send_player_list())
-    remove_from_list(3)
-    print(send_player_list())
-
+    print(player_list)
 

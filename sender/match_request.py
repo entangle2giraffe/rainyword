@@ -34,6 +34,7 @@ def check_request():
                 remove_request(id1)
                 remove_request(id2)
                 return [id1,id2]
+    return 0
 
 #def match_start():
 
@@ -42,9 +43,7 @@ if __name__ == "__main__":
     print(match_request)
     add_request(122,22)
     add_request(13,15)
-    add_request(13,56)
-    add_request(15,13)
-    add_request(12,59)
+    add_request(1,123)
     print(match_request)
     print(check_request())
     print(match_request)
