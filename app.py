@@ -67,7 +67,7 @@ class Server:
             self.broadcast(wl.generate_random_words(), client1, client2)
             time.sleep(3)
 
-    def threaded_recieve(self, c):
+    def threaded_recieve(self, c, stop):
         """
         Make the client able to send data while recieve it from
         the server
@@ -98,11 +98,17 @@ class Server:
                 request.add_request(data["matchRequest"][0], data["matchRequest"][1])
             if not data:
                 print("not data")
-                break    
-        recv_thread = Thread(target=self.threaded_recieve, args=(c,))
+                break
+        stop_threads = False # recv_thread parameter for killing the thread
+        recv_thread = Thread(target=self.threaded_recieve, args=(c,lambda: stop_threads,))
         recv_thread.start()
-        threads.append(recv_thread)
-        self.word_gen()    
+        self.threads.append(recv_thread)
+        self.word_gen() # Generated word list to be send to clients
+        stop_threads = True 
+        # Stop thread for all client
+        for t in self.threads:
+            t.join()
+        logging.debug('All reciever threads are dead')    
         c.close()    
 
     def start(self, client_n:int=2):
