@@ -12,12 +12,41 @@ from threading import Thread
 class Server:
     connections = []
     addresses = []
+    threads = []
+    word_list_dict = {}
+    score_dict = {}
     thread_count = 0
+    listening = False
+    FORMAT = "utf-8"
 
     def __init__(self, port:int):        
-        logging.basicConfig(level=logging.DEBUG, format='[%(levelname)s] %(asctime)s %(message)s')
+        self.logger = logging.getLogger(__name__)
+        self.logger.setLevel(1)
+        f_handler = logging.FileHandler('app.log')
+        c_handler = logging.StreamHandler()
+        
+        formatter = logging.Formatter('[%(levelname)s] %(asctime)s %(message)s')
+        c_handler.setFormatter(formatter)
+        f_handler.setFormatter(formatter)
+        for h in (c_handler,f_handler):
+            self.logger.addHandler(h)
+        #logging.basicConfig(level=logging.DEBUG, format='[%(levelname)s] %(asctime)s %(message)s')
         self.port = port
         self.lb = lobby.Lobby("status.json")
+    
+    # check all the time if there is any matched request every 1 sec. If so, send matchStart message to two matched clients ex.{"matchStart":[1,123]}
+    def match_request_check(self):
+        while self.listening == True: # exit while loop when the server stopped listening
+            matched = request.check_request()
+            if matched != 0: 
+                c1 = player.find(matched[0])
+                c2 = player.find(matched[1])
+                message = '{"matchStart":' + str(matched) + '}'
+                self.broadcast(message, self.connections[c1], self.connections[c2]) 
+                matched = 0
+                self.logger.debug("matched!!!")
+            time.sleep(1)
+        self.logger.debug("match_request_check has stopped working")    
   
     def broadcast(self, msg):
         for conn in self.connections:
@@ -67,8 +96,8 @@ class Server:
         try:
             sock.bind(('',self.port))
         except socket.error as e:
-            logging.error(f"{str(e)}")
-        logging.info(f"socket is binded to {self.port}")
+            self.logger.error(f"{str(e)}")
+        self.logger.info(f"socket is binded to {self.port}")
 
         # listen to n clients 
         sock.listen(client_n)
@@ -87,8 +116,6 @@ class Server:
             self.thread_count += 1
             logging.debug(f"Thread: {self.thread_count}")
         sock.close()
-        self.lb.reset_dict()
-        
     
 if __name__ == '__main__':
     s = Server(6969)
