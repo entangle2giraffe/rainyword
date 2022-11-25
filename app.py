@@ -14,6 +14,7 @@ import typed_word as typed
 import expired_word as remove
 import utils
 import exit
+import PySimpleGUI as sg # pip install pysimplegui first
 
 class Server:
     connections = []
@@ -39,6 +40,10 @@ class Server:
         #logging.basicConfig(level=logging.DEBUG, format='[%(levelname)s] %(asctime)s %(message)s')
         self.port = port
         self.lb = lobby.Lobby("status.json")
+    
+    def reset(self):
+
+        return self.connections
 
     # check all the time if there is any matched request every 1 sec. If so, send matchStart message to two matched clients ex.{"matchStart":[1,123]}
     def match_request_check(self):
@@ -47,7 +52,7 @@ class Server:
             if matched != 0: 
                 c1 = player.find(matched[0])
                 c2 = player.find(matched[1])
-                message = '{"matchStart":' + str(matched) + '}' 
+                message = '{"matchStart":' + str(matched) + '}'
                 self.broadcast(message, self.connections[c1], self.connections[c2]) 
                 matched = 0
                 self.logger.debug("matched!!!")
@@ -92,13 +97,11 @@ class Server:
         """
         lower_id = min(id1, id2)
         while True:
-            #try:
+            try:
                 message = json.loads(c1.recv(2048).decode())
                 if message == 'none':
                     break
                 if "playerTyped" in message:
-                    print(message)
-                    print(self.word_list_dict)
                     typed_word = message["playerTyped"]
                     print(typed_word)
                     if typed_word in self.word_list_dict[lower_id]: # if typed correctly
@@ -109,89 +112,112 @@ class Server:
                         score = '{"scoreList":[{"id":' + str(id1) + ',"score":' + str(self.score_dict[id1]) + "}]}"
                         print(score)
                         self.broadcast(score, c1, c2)
-                        #{"scoreList":[{"id":0,"score":100}]}
                 if "wordExpire" in message:
                     expired_word = message["wordExpire"]
                     if expired_word in self.word_list_dict[lower_id]:
                         self.word_list_dict[lower_id].remove(expired_word)
-                #if "removeClient" in message: # ex. {"removeClient":1}
-                    #c1.close()
-                    #exit.quit(message["removeClient"])
-                    #break
-            #except:
-               # c1.close()
-                #exit.quit(id1)
-                #print("error")
-                #break
-
-    #def start_game()        
+                if "removeClient" in message: # ex. {"removeClient":1}
+                    c1.close()
+                    self.connections.pop(player.find(id1))
+                    exit.quit(message["removeClient"])
+                    break
+            except:
+                c1.close()
+                self.connections.pop(player.find(id1))
+                exit.quit(id1)
+                print("error")
+                break       
 
     def multi_threaded_client(self, c:socket, new_client):
         """
         Connect Multiple CLients in Python
         """
-        #try:
-        DISCONNECT_MESSAGE = "!DISCONNECT" # [NOT IMPLEMENT]
-        player_ID = self.thread_count # player assigned id in each thread
-        isBusy = False #placeholder
-        bla = True
+        try:
+            DISCONNECT_MESSAGE = "!DISCONNECT" # [NOT IMPLEMENT]
+            player_ID = self.thread_count # player assigned id in each thread
+            isBusy = False #placeholder
+            bla = True
 
-        c.sendall(f'{player.assign_id(player_ID)}'.encode(self.FORMAT)) # send an assigned id to client
-        player.add_to_list(player_ID, new_client, isBusy) # add this client to player_list
-        # in lobby
-        while True:
-            data = json.loads(c.recv(2048).decode())
-            # send player_list to the client
-            if "requestPlayerList" in data: # ex.{"requestPlayerList":1}
-                c.sendall(f'{player.send_player_list()}'.encode(self.FORMAT))
-            # add matching request to the list match_request then send request to the opponent   
-            if "matchRequest" in data:
-                request.add_request(data["matchRequest"][0], data["matchRequest"][1])
-                receiver = player.find(data["matchRequest"][1])
-                self.connections[receiver].sendall(f'{str(data)}'.encode(self.FORMAT)) 
-            if "readyToPlay" in data: # {"readyToPlay":[1,2]}
-                my_id = data["readyToPlay"][0]
-                opponent_id = data["readyToPlay"][1]
-                myConnection = self.connections[player.find(my_id)] 
-                opponentConnection = self.connections[player.find(opponent_id)]
-                break
-            #if "removeClient" in data: # ex. {"removeClient":1}
-                #c.close()
-                #exit.quit(player_ID)
-            if not data:
-                print("not data")
-                break
-        try: 
-            if my_id not in self.score_dict:
-                self.score_dict[my_id] = 0
+            c.sendall(f'{player.assign_id(player_ID)}'.encode(self.FORMAT)) # send an assigned id to client
+            player.add_to_list(player_ID, new_client, isBusy) # add this client to player_list
+            print(player.player_list)
+            # in lobby
+            while True:
+                data = json.loads(c.recv(2048).decode())
+                # send player_list to the client
+                if "requestPlayerList" in data: # ex.{"requestPlayerList":1}
+                    c.sendall(f'{player.send_player_list()}'.encode(self.FORMAT))
+                # add matching request to the list match_request then send request to the opponent   
+                if "matchRequest" in data:
+                    request.add_request(data["matchRequest"][0], data["matchRequest"][1])
+                    receiver = player.find(data["matchRequest"][1])
+                    self.connections[receiver].sendall(f'{str(data)}'.encode(self.FORMAT)) 
+                if "readyToPlay" in data: # {"readyToPlay":[1,2]}
+                    my_id = data["readyToPlay"][0]
+                    opponent_id = data["readyToPlay"][1]
+                    myConnection = self.connections[player.find(my_id)] 
+                    opponentConnection = self.connections[player.find(opponent_id)]
+                    break
+                if "removeClient" in data: # ex. {"removeClient":1}
+                    c.close()
+                    self.connections.pop(player.find(player_ID))
+                    exit.quit(player_ID)
+                if not data:
+                    print("not data")
+                    break
+            try: 
+                if my_id not in self.score_dict:
+                    self.score_dict[my_id] = 0
+            except:
+                print("room creation error")
+            stop_threads = False # recv_thread parameter for killing the thread
+            recv_thread = Thread(target=self.threaded_recieve, args=(myConnection, opponentConnection,lambda: stop_threads, my_id, opponent_id))
+            recv_thread.start() # thread_receive function
+            self.threads.append(recv_thread)
+            self.word_gen(myConnection, opponentConnection, my_id, opponent_id) # Generate words list and send to two clients
+            myConnection.recv(2048).decode()
+            stop_threads = True
+            # Stop thread for all client
+            for t in self.threads:
+                t.join()
+            logging.debug('All reciever threads are dead')    
+            c.close()
+            self.connections.pop(player.find(player_ID))
+            exit.quit(player_ID)
         except:
-            print("room creation error")
-        stop_threads = False # recv_thread parameter for killing the thread
-        recv_thread = Thread(target=self.threaded_recieve, args=(myConnection, opponentConnection,lambda: stop_threads, my_id, opponent_id))
-        recv_thread.start() # thread_receive function
-        self.threads.append(recv_thread)
-        self.word_gen(myConnection, opponentConnection, my_id, opponent_id) # Generate words list and send to two clients
-        myConnection.recv(2048).decode()
-        stop_threads = True
-        # Stop thread for all client
-        for t in self.threads:
-            t.join()
-        logging.debug('All reciever threads are dead')    
-        c.close()
-        # exit.quit(player_ID)
-    #except:
-        #c.close()
-        #exit.quit(player_ID)    
-        stop_threads = False    
-        recv_thread = Thread(target=self.threaded_recieve, args=(c,lambda: stop_threads,))
-        recv_thread.start()
-        self.threads.append(recv_thread)
-        self.word_gen()
-        stop_threads = True
-        for t in self.threads:
-            t.join()
-        self.logger.debug('All reciever threads are dead')    
-        c.close()    
+            c.close()
+            self.connections.pop(player.find(player_ID))
+            exit.quit(player_ID)
+            
+    # pip install pysimplegui first
+    def gui(self):
+        # Define the window's contents
+        # layout = [[sg.Text("What's your name?")],
+        #           [sg.Input(key='-INPUT-')],
+        #           [sg.Text(size=(40,1), key='-OUTPUT-')],
+        #           [sg.Button('Ok'), sg.Button('Quit'), sg.Button('Reset')]]
+
+        layout = [[sg.Text(size=(40,1), key='-NUMCLIENT-')],
+                [sg.Text(size=(40,1), key='-RESET-')],
+                [sg.Button('Start'), sg.Button('Reset'), sg.Button('Quit')]]
+
+        # Create the window
+        window = sg.Window('RainyWords Server', layout)
+
+        # Display and interact with the Window using an Event Loop
+        while True:
+            event, values = window.read()
+            n = len(player.player_list)
+            window['-NUMCLIENT-'].update(str(n) + ' clients are connected')
+            msg = '{"resetGame":1}'
+            if event == 'Reset':
+                # send reset json
+                window['-RESET-'].update('Reset button clicked')
+                print("Reset all games and scores")
+                self.announce(msg)
+            if event == sg.WINDOW_CLOSED or event == 'Quit':
+                break
+        window.close()    
 
     def start(self, client_n:int=10):
         """
@@ -208,6 +234,8 @@ class Server:
         sock.listen(client_n)
         self.listening = True
         self.logger.info("socket is listening")
+        gui = Thread(target = self.gui)
+        gui.start()
         thread = Thread(target = self.match_request_check,)
         thread.start()
         #start_new_thread(self.match_request_check(),)
@@ -220,18 +248,12 @@ class Server:
             self.addresses.append(self.addr)
 
             new_client = json.loads(self.c.recv(2048).decode()) # receive name from client
-            #logging.debug(new_client) # {'newClient': 'Alice'}
-            #logging.debug(type(new_client)) # dict
-            #logging.debug(new_client['newClient']) # Alice
             print("") 
-            #print(self.connections)
-            #print(self.addresses) 
             self.logger.debug("Connection from: "+str(self.addr))
             start_new_thread(self.multi_threaded_client,(self.c, new_client['newClient'])) #use current self.c to start a new thread
             self.thread_count += 1
             logging.debug(f"Thread: {self.thread_count}") 
             self.logger.debug(f"Thread: {self.thread_count}")
-            #logging.debug(f"connections[] length: " + str(len(self.connections))) 
             print("")
         self.logger.info("socket is closed")
         self.listening = False

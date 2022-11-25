@@ -1,0 +1,198 @@
+[INFO] 2022-11-25 06:27:35,052 socket is binded to 6969
+[INFO] 2022-11-25 06:27:35,053 socket is listening
+[DEBUG] 2022-11-25 06:27:45,282 Connection from: ('127.0.0.1', 51940)
+[DEBUG] 2022-11-25 06:27:45,283 Thread: 1
+[DEBUG] 2022-11-25 06:27:47,097 Connection from: ('127.0.0.1', 51943)
+[DEBUG] 2022-11-25 06:27:47,099 Thread: 2
+[DEBUG] 2022-11-25 06:27:51,210 matched!!!
+[DEBUG] 2022-11-25 06:28:28,561 Connection from: ('127.0.0.1', 51986)
+[DEBUG] 2022-11-25 06:28:28,563 Thread: 3
+[DEBUG] 2022-11-25 06:28:35,092 Connection from: ('127.0.0.1', 51991)
+[DEBUG] 2022-11-25 06:28:35,093 Thread: 4
+[DEBUG] 2022-11-25 06:28:42,702 matched!!!
+[DEBUG] 2022-11-25 06:29:09,824 Connection from: ('127.0.0.1', 52009)
+[DEBUG] 2022-11-25 06:29:09,826 Thread: 5
+[DEBUG] 2022-11-25 06:29:11,808 Connection from: ('127.0.0.1', 52020)
+[DEBUG] 2022-11-25 06:29:11,811 Thread: 6
+[DEBUG] 2022-11-25 06:29:19,067 matched!!!
+[INFO] 2022-11-25 06:40:20,555 socket is binded to 6969
+[INFO] 2022-11-25 06:40:20,570 socket is listening
+[DEBUG] 2022-11-25 06:40:25,088 Connection from: ('127.0.0.1', 52149)
+[DEBUG] 2022-11-25 06:40:25,089 Thread: 1
+[DEBUG] 2022-11-25 06:40:27,437 Connection from: ('127.0.0.1', 52150)
+[DEBUG] 2022-11-25 06:40:27,438 Thread: 2
+[DEBUG] 2022-11-25 06:40:35,715 matched!!!
+[DEBUG] 2022-11-25 06:41:02,918 Connection from: ('127.0.0.1', 51682)
+[DEBUG] 2022-11-25 06:41:02,920 Thread: 3
+[DEBUG] 2022-11-25 06:41:06,217 Connection from: ('127.0.0.1', 51683)
+[DEBUG] 2022-11-25 06:41:06,219 Thread: 4
+[DEBUG] 2022-11-25 06:43:31,754 Connection from: ('127.0.0.1', 51752)
+[DEBUG] 2022-11-25 06:43:31,755 Thread: 5
+[DEBUG] 2022-11-25 06:43:46,012 Connection from: ('127.0.0.1', 51761)
+[DEBUG] 2022-11-25 06:43:46,014 Thread: 6
+[DEBUG] 2022-11-25 06:43:48,844 Connection from: ('127.0.0.1', 51762)
+[DEBUG] 2022-11-25 06:43:48,847 Thread: 7
+[INFO] 2022-11-25 06:59:34,725 socket is binded to 6969
+[INFO] 2022-11-25 06:59:34,726 socket is listening
+[DEBUG] 2022-11-25 06:59:37,464 Connection from: ('127.0.0.1', 51172)
+[DEBUG] 2022-11-25 06:59:37,465 Thread: 1
+[DEBUG] 2022-11-25 06:59:39,553 Connection from: ('127.0.0.1', 51178)
+[DEBUG] 2022-11-25 06:59:39,554 Thread: 2
+[DEBUG] 2022-11-25 07:00:26,275 matched!!!
+[DEBUG] 2022-11-25 07:01:08,790 Connection from: ('127.0.0.1', 51200)
+[DEBUG] 2022-11-25 07:01:08,791 Thread: 3
+[DEBUG] 2022-11-25 07:01:14,822 Connection from: ('127.0.0.1', 51201)
+[DEBUG] 2022-11-25 07:01:14,823 Thread: 4
+[INFO] 2022-11-25 07:20:07,783 socket is binded to 6969
+[INFO] 2022-11-25 07:20:07,784 socket is listening
+[DEBUG] 2022-11-25 07:20:10,205 Connection from: ('127.0.0.1', 54952)
+[DEBUG] 2022-11-25 07:20:10,206 Thread: 1
+[DEBUG] 2022-11-25 07:20:12,971 Connection from: ('127.0.0.1', 54953)
+[DEBUG] 2022-11-25 07:20:12,972 Thread: 2
+[DEBUG] 2022-11-25 07:20:17,858 matched!!!
+[DEBUG] 2022-11-25 07:22:50,349 Connection from: ('127.0.0.1', 55032)
+[DEBUG] 2022-11-25 07:22:50,350 Thread: 3
+[DEBUG] 2022-11-25 07:22:52,015 Connection from: ('127.0.0.1', 55034)
+[DEBUG] 2022-11-25 07:22:52,016 Thread: 4
+[INFO] 2022-11-25 07:24:40,205 socket is binded to 6969
+[INFO] 2022-11-25 07:24:40,205 socket is listening
+[DEBUG] 2022-11-25 07:24:43,231 Connection from: ('127.0.0.1', 55146)
+[DEBUG] 2022-11-25 07:24:43,232 Thread: 1
+[DEBUG] 2022-11-25 07:24:46,146 Connection from: ('127.0.0.1', 55149)
+[DEBUG] 2022-11-25 07:24:46,147 Thread: 2
+[DEBUG] 2022-11-25 07:24:54,312 matched!!!
+[DEBUG] 2022-11-25 07:25:08,453 Connection from: ('127.0.0.1', 55157)
+[DEBUG] 2022-11-25 07:25:08,454 Thread: 3
+[DEBUG] 2022-11-25 07:25:09,502 Connection from: ('127.0.0.1', 55159)
+[DEBUG] 2022-11-25 07:25:09,503 Thread: 4
+[INFO] 2022-11-25 07:26:47,618 socket is binded to 6969
+[INFO] 2022-11-25 07:26:47,619 socket is listening
+[DEBUG] 2022-11-25 07:26:50,624 Connection from: ('127.0.0.1', 55218)
+[DEBUG] 2022-11-25 07:26:50,625 Thread: 1
+[DEBUG] 2022-11-25 07:26:52,939 Connection from: ('127.0.0.1', 55219)
+[DEBUG] 2022-11-25 07:26:52,940 Thread: 2
+[DEBUG] 2022-11-25 07:27:01,752 matched!!!
+[INFO] 2022-11-25 07:32:25,299 socket is binded to 6969
+[INFO] 2022-11-25 07:32:25,301 socket is listening
+[DEBUG] 2022-11-25 07:32:28,237 Connection from: ('127.0.0.1', 55327)
+[DEBUG] 2022-11-25 07:32:28,238 Thread: 1
+[DEBUG] 2022-11-25 07:32:31,469 Connection from: ('127.0.0.1', 55328)
+[DEBUG] 2022-11-25 07:32:31,470 Thread: 2
+[DEBUG] 2022-11-25 07:32:49,488 matched!!!
+[INFO] 2022-11-25 07:35:44,932 socket is binded to 6969
+[INFO] 2022-11-25 07:35:44,933 socket is listening
+[DEBUG] 2022-11-25 07:36:21,201 Connection from: ('127.0.0.1', 55416)
+[DEBUG] 2022-11-25 07:36:21,201 Thread: 1
+[DEBUG] 2022-11-25 07:36:24,035 Connection from: ('127.0.0.1', 55419)
+[DEBUG] 2022-11-25 07:36:24,036 Thread: 2
+[DEBUG] 2022-11-25 07:36:31,345 matched!!!
+[INFO] 2022-11-25 07:40:54,972 socket is binded to 6969
+[INFO] 2022-11-25 07:40:54,973 socket is listening
+[DEBUG] 2022-11-25 07:41:02,437 Connection from: ('127.0.0.1', 55556)
+[DEBUG] 2022-11-25 07:41:02,438 Thread: 1
+[DEBUG] 2022-11-25 07:41:04,620 Connection from: ('127.0.0.1', 55557)
+[DEBUG] 2022-11-25 07:41:04,621 Thread: 2
+[DEBUG] 2022-11-25 07:41:09,081 matched!!!
+[INFO] 2022-11-25 07:43:09,071 socket is binded to 6969
+[INFO] 2022-11-25 07:43:09,072 socket is listening
+[DEBUG] 2022-11-25 07:43:13,961 Connection from: ('127.0.0.1', 55599)
+[DEBUG] 2022-11-25 07:43:13,962 Thread: 1
+[DEBUG] 2022-11-25 07:43:16,410 Connection from: ('127.0.0.1', 55600)
+[DEBUG] 2022-11-25 07:43:16,411 Thread: 2
+[DEBUG] 2022-11-25 07:43:20,166 matched!!!
+[INFO] 2022-11-25 07:44:14,711 socket is binded to 6969
+[INFO] 2022-11-25 07:44:14,712 socket is listening
+[DEBUG] 2022-11-25 07:44:20,082 Connection from: ('127.0.0.1', 55656)
+[DEBUG] 2022-11-25 07:44:20,082 Thread: 1
+[DEBUG] 2022-11-25 07:44:26,811 Connection from: ('127.0.0.1', 55657)
+[DEBUG] 2022-11-25 07:44:26,812 Thread: 2
+[DEBUG] 2022-11-25 07:44:32,855 matched!!!
+[INFO] 2022-11-25 07:45:21,142 socket is binded to 6969
+[INFO] 2022-11-25 07:45:21,143 socket is listening
+[DEBUG] 2022-11-25 07:45:24,568 Connection from: ('127.0.0.1', 55684)
+[DEBUG] 2022-11-25 07:45:24,569 Thread: 1
+[DEBUG] 2022-11-25 07:45:26,017 Connection from: ('127.0.0.1', 55685)
+[DEBUG] 2022-11-25 07:45:26,018 Thread: 2
+[DEBUG] 2022-11-25 07:45:29,213 matched!!!
+[INFO] 2022-11-25 07:51:28,112 socket is binded to 6969
+[INFO] 2022-11-25 07:51:28,112 socket is listening
+[DEBUG] 2022-11-25 07:51:32,484 Connection from: ('127.0.0.1', 55808)
+[DEBUG] 2022-11-25 07:51:32,485 Thread: 1
+[DEBUG] 2022-11-25 07:51:34,551 Connection from: ('127.0.0.1', 55809)
+[DEBUG] 2022-11-25 07:51:34,552 Thread: 2
+[DEBUG] 2022-11-25 07:51:39,167 matched!!!
+[INFO] 2022-11-25 07:58:39,191 socket is binded to 6969
+[INFO] 2022-11-25 07:58:39,192 socket is listening
+[DEBUG] 2022-11-25 07:58:45,788 Connection from: ('127.0.0.1', 55977)
+[DEBUG] 2022-11-25 07:58:45,789 Thread: 1
+[DEBUG] 2022-11-25 07:58:47,787 Connection from: ('127.0.0.1', 55978)
+[DEBUG] 2022-11-25 07:58:47,788 Thread: 2
+[DEBUG] 2022-11-25 07:58:57,338 matched!!!
+[DEBUG] 2022-11-25 07:59:14,940 Connection from: ('127.0.0.1', 55990)
+[DEBUG] 2022-11-25 07:59:14,941 Thread: 3
+[DEBUG] 2022-11-25 07:59:19,770 Connection from: ('127.0.0.1', 55992)
+[DEBUG] 2022-11-25 07:59:19,771 Thread: 4
+[DEBUG] 2022-11-25 07:59:25,561 matched!!!
+[DEBUG] 2022-11-25 07:59:40,729 Connection from: ('127.0.0.1', 55996)
+[DEBUG] 2022-11-25 07:59:40,730 Thread: 5
+[DEBUG] 2022-11-25 07:59:47,308 Connection from: ('127.0.0.1', 55997)
+[DEBUG] 2022-11-25 07:59:47,309 Thread: 6
+[DEBUG] 2022-11-25 08:00:26,153 Connection from: ('127.0.0.1', 56008)
+[DEBUG] 2022-11-25 08:00:26,154 Thread: 7
+[DEBUG] 2022-11-25 08:00:37,178 matched!!!
+[DEBUG] 2022-11-25 08:00:51,413 Connection from: ('127.0.0.1', 56015)
+[DEBUG] 2022-11-25 08:00:51,414 Thread: 8
+[DEBUG] 2022-11-25 08:00:55,146 Connection from: ('127.0.0.1', 56019)
+[DEBUG] 2022-11-25 08:00:55,147 Thread: 9
+[DEBUG] 2022-11-25 08:01:03,434 matched!!!
+[INFO] 2022-11-25 08:13:09,186 socket is binded to 6969
+[INFO] 2022-11-25 08:13:09,187 socket is listening
+[INFO] 2022-11-25 08:14:35,752 socket is binded to 6969
+[INFO] 2022-11-25 08:14:35,753 socket is listening
+[INFO] 2022-11-25 08:14:52,684 socket is binded to 6969
+[INFO] 2022-11-25 08:14:52,685 socket is listening
+[ERROR] 2022-11-25 08:17:37,971 [WinError 10048] Only one usage of each socket address (protocol/network address/port) is normally permitted
+[INFO] 2022-11-25 08:17:37,978 socket is binded to 6969
+[INFO] 2022-11-25 08:17:48,695 socket is binded to 6969
+[INFO] 2022-11-25 08:17:48,696 socket is listening
+[DEBUG] 2022-11-25 08:18:04,630 Connection from: ('127.0.0.1', 63756)
+[DEBUG] 2022-11-25 08:18:04,630 Thread: 1
+[DEBUG] 2022-11-25 08:18:07,512 Connection from: ('127.0.0.1', 63757)
+[DEBUG] 2022-11-25 08:18:07,513 Thread: 2
+[DEBUG] 2022-11-25 08:18:39,145 Connection from: ('127.0.0.1', 63777)
+[DEBUG] 2022-11-25 08:18:39,146 Thread: 3
+[DEBUG] 2022-11-25 08:24:54,296 Connection from: ('127.0.0.1', 51909)
+[DEBUG] 2022-11-25 08:24:54,297 Thread: 4
+[DEBUG] 2022-11-25 08:24:56,428 Connection from: ('127.0.0.1', 51910)
+[DEBUG] 2022-11-25 08:24:56,429 Thread: 5
+[DEBUG] 2022-11-25 08:24:59,026 Connection from: ('127.0.0.1', 51911)
+[DEBUG] 2022-11-25 08:24:59,027 Thread: 6
+[DEBUG] 2022-11-25 08:25:04,896 matched!!!
+[DEBUG] 2022-11-25 08:26:04,954 Connection from: ('127.0.0.1', 51932)
+[DEBUG] 2022-11-25 08:26:04,955 Thread: 7
+[DEBUG] 2022-11-25 08:26:10,526 matched!!!
+[DEBUG] 2022-11-25 08:27:34,687 Connection from: ('127.0.0.1', 51951)
+[DEBUG] 2022-11-25 08:27:34,688 Thread: 8
+[DEBUG] 2022-11-25 08:27:49,563 Connection from: ('127.0.0.1', 51958)
+[DEBUG] 2022-11-25 08:27:49,564 Thread: 9
+[DEBUG] 2022-11-25 08:28:00,460 Connection from: ('127.0.0.1', 51965)
+[DEBUG] 2022-11-25 08:28:00,462 Thread: 10
+[DEBUG] 2022-11-25 08:28:02,790 Connection from: ('127.0.0.1', 51966)
+[DEBUG] 2022-11-25 08:28:02,792 Thread: 11
+[DEBUG] 2022-11-25 08:28:12,453 Connection from: ('127.0.0.1', 51967)
+[DEBUG] 2022-11-25 08:28:12,454 Thread: 12
+[DEBUG] 2022-11-25 08:28:20,249 Connection from: ('127.0.0.1', 51968)
+[DEBUG] 2022-11-25 08:28:20,251 Thread: 13
+[DEBUG] 2022-11-25 08:28:33,226 Connection from: ('127.0.0.1', 51969)
+[DEBUG] 2022-11-25 08:28:33,228 Thread: 14
+[DEBUG] 2022-11-25 08:29:06,195 matched!!!
+[DEBUG] 2022-11-25 08:31:16,636 Connection from: ('127.0.0.1', 60450)
+[DEBUG] 2022-11-25 08:31:16,637 Thread: 15
+[DEBUG] 2022-11-25 08:31:18,219 Connection from: ('127.0.0.1', 60451)
+[DEBUG] 2022-11-25 08:31:18,220 Thread: 16
+[DEBUG] 2022-11-25 08:31:22,372 matched!!!
+[DEBUG] 2022-11-25 08:36:26,413 Connection from: ('127.0.0.1', 60525)
+[DEBUG] 2022-11-25 08:36:26,414 Thread: 17
+[DEBUG] 2022-11-25 08:36:36,109 Connection from: ('127.0.0.1', 60526)
+[DEBUG] 2022-11-25 08:36:36,110 Thread: 18
+[DEBUG] 2022-11-25 08:36:44,240 matched!!!
