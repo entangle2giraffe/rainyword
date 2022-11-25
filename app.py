@@ -41,10 +41,6 @@ class Server:
         self.port = port
         self.lb = lobby.Lobby("status.json")
     
-    def reset(self):
-
-        return self.connections
-
     # check all the time if there is any matched request every 1 sec. If so, send matchStart message to two matched clients ex.{"matchStart":[1,123]}
     def match_request_check(self):
         while self.listening == True: # exit while loop when the server stopped listening
@@ -72,7 +68,7 @@ class Server:
         """
         for conn in self.connections:
             conn.sendall(msg.encode(self.FORMAT))
-
+    # in-game
     def word_gen(self, client1, client2, id1, id2):
         """
         Generates 5 words every 3 seconds for the period of 
@@ -82,14 +78,14 @@ class Server:
         if id_lower not in self.word_list_dict:
             self.word_list_dict[id_lower] = []
         for i in range(9):
-            words = json.loads(wl.generate_random_words(25)) # {"word": ["adopt", "blacks", "personals", "coat", "guided"]}
+            words = json.loads(wl.generate_random_words(25)) # ex. {"words": ["adopt", "blacks", "personals", "coat", "guided"]}
             for i in words["words"]:
                 self.word_list_dict[id_lower].append(str(i))
             #self.broadcast(utils.jsonify(words), client1, client2)
             client1.sendall(f'{utils.jsonify(words)}'.encode(self.FORMAT))
             client2.sendall(f'{utils.jsonify(words)}'.encode(self.FORMAT))
             time.sleep(0.5)
-
+    # in-game ( not yet has play again)
     def threaded_recieve(self, c1, c2, stop, id1, id2):
         """
         Make the client able to send data while recieve it from
@@ -116,6 +112,9 @@ class Server:
                     expired_word = message["wordExpire"]
                     if expired_word in self.word_list_dict[lower_id]:
                         self.word_list_dict[lower_id].remove(expired_word)
+                if "readyToPlay" in message:
+                    self.score_dict[id1] = int(self.score_dict[id1]) - (self.score_dict[id1])
+                    self.word_gen(c1, c2, id1, id2)
                 if "removeClient" in message: # ex. {"removeClient":1}
                     c1.close()
                     self.connections.pop(player.find(id1))
@@ -188,7 +187,7 @@ class Server:
             c.close()
             self.connections.pop(player.find(player_ID))
             exit.quit(player_ID)
-            
+
     # pip install pysimplegui first
     def gui(self):
         # Define the window's contents
