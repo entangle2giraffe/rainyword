@@ -1,4 +1,5 @@
 import json
+import os
 
 def plaintext_to_list(filename):
     words_list = []
@@ -29,6 +30,14 @@ def class_to_json(cl):
 def json_read(res):
     """Read JSON in plaintext"""
     return json.loads(res)
+
+def json_modify(filename:str, key:str, value):
+    with open(filename, 'r') as f:
+        data = json.load(f)
+    data[key] = value
+
+    with open(filename, 'w') as f:
+        json.dump(data, f)
 
 
 if __name__ == "__main__":

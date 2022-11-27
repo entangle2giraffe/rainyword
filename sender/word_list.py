@@ -1,21 +1,26 @@
 import json
 import random
-import time
+import time, os, sys
 import threading
 
+# import from parent directory
+current = os.path.dirname(os.path.realpath(__file__))
+parent = os.path.dirname(current)
+sys.path.append(parent)
 from utils import jsonify
 
-def generate_random_words() -> list:
+# return json of words ex. {"word": ["adopt", "blacks", "personals", "coat", "guided"]}
+def generate_random_words(n:int) -> list:
     """
-    Comment here <--
-    random bullshit go
+    Generate the random word from the list
     """
     with open("words_list.json") as f:
         content = json.loads(f.read())
         content = content['categories']['MIT 10000 words']
-        words = jsonify({"word":random.sample(content, 5)})
-        print(words)
+        words = jsonify({"words":random.sample(content, n)})  
+        return words
 
+# [TODO] Send words list for 5 min with delay between each
 def countdown():
     #countdown code
     global my_timer
