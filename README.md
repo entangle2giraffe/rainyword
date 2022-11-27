@@ -5,7 +5,6 @@ Table of Contents
 - [Reminder](#reminder)
 - [Running Docker Image](#run-docker-container)
 - [Developing Docker Image](#developing-with-docker-image)
-- [TODO](#todo-lists)
 
 Everything can be config inside the config file.
 
@@ -26,40 +25,3 @@ Run your image as a container
 
 Remove your test image
 `docker rmi yuuhatevim/rainyword:test`
-
-## TODO Lists
-1. typed_word.py
-2. expired_word.py
-
-## Sender JSON Format
-__lobby.py__
-
-return Player(point(ID=1)=0,point(ID=2)=0)
-```json
-{
-    "player": [0,0]
-}
-```
-
-__word_list.py__
-
-return
-```json
-{
-    "word": [
-        "word0",
-        "word1",
-        "word2",
-        "word3",
-        "word4",
-    ]
-}
-```
-
-__typed_word.py__
-
-return point(ID:1,Point:1)
-```json
-{
-    "point": [1,1]
-}
