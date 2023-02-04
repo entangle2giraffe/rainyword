@@ -1,0 +1,15 @@
+# This is a basic workflow to help you get started with Actions
+name:  Lint
+# Controls when the workflow will run
+on:
+  push:
+    branches: [ zack ]
+  pull_request:
+    branches: [ zack ]
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: psf/black@stable
